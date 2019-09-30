@@ -10,10 +10,6 @@ coulomb_mesh: False
 doping: true
 dos: {analyse_dos: True}
 parallel: False
-coulomb_correction: True
-coulomb_correction_simple: False
-CT_energy: -2 #eV
-
 
 dopant_species: [1]
 
