@@ -1,0 +1,174 @@
+connect_electrodes: false
+coulomb_correction: false # new
+coulomb_mesh: false # always for bulk system
+ct_rate_memory_multiplier: 6
+def_Temperature: 600
+# device_layout: manual # layers: dimensions and layer_centers have to be specified, better use stack
+# devic_layout: stack # default, dimensions etc. don't have to be specified, cubis, thickness, morphology_width are enough
+distance_epsilon: false
+dopant_species:
+- 1
+doping: true
+doping_regeneration_steps: 30
+dos:
+  Emax: 0.0
+  Emin: -6.0
+  NE: 1000
+  analyse_dos: true
+electrode_stack_distance: 0.8 # not necessary, default
+epsilon_material: 3.63 # from old yaml file, occurs in new function get_exact_potential_lf() in electrostatics.py
+excitonics: use presets # should work
+experiments:
+- Temperature: 600
+  field_direction:
+  - 1
+  - 0
+  - 0
+  field_strength: 0.04
+  measurement: DC
+  simulations: 1
+# initial_charges has to be on first level, otherwise: 'dict_obj' object is not subscriptable error
+from_wano: false # this was true by default for lf-wano and is now false by default
+initial_charges:
+- electrons: 0.0
+  holes: 0.0
+iv_fluctuation: 0.01
+layers:
+- mol_concentration_source: manual
+  molecule_species:
+  - concentration: 0.7
+    material: host
+  - concentration: 0.3
+    material: dopant
+  morphology_input_mode: cubic # old setting
+  morphology_source: cubic
+  onsite_energy_source: gaussian # old setting
+  reorganization_energies_source: constant # old setting
+  thickness: 20.0
+  use_QuantumPatch_output: false # set by "PAR: eaip,sig,l"
+  
+materials:
+- input_mode_transport: 'PAR: eaip,sig,l'
+  molecule_parameters:
+    energies:
+    - - -0.947
+      - -2.0
+    - - 0.0
+      - 0.0
+    - - 0.2
+      - 0.2  
+  excitation_energies:
+    disorder: 0.1
+    disorder_lambda: 0.1
+    lambda_value: 0.2
+    mean: 1.2
+    mean_lambda: -5.2
+    singlet_decay_rate: 10000000000.0
+    thermal_decay_rate: 100000.0
+    triplet_decay_rate: 10000000000.0  
+
+    exciton preset: doping
+  name: host
+- input_mode_transport: 'PAR: eaip,sig,l'
+  molecule_parameters:
+    energies:
+    - - -3.0
+      - -5.078
+    - - 0.0
+      - 0.0
+    - - 0.2
+      - 0.2
+  excitation_energies:
+    disorder: 0.0
+    disorder_lambda: 0.1
+    lambda_value: 0.2
+    mean: 0.0
+    mean_lambda: -5.2
+    singlet_decay_rate: 0.0
+    thermal_decay_rate: 0.0
+    triplet_decay_rate: 0.0
+    exciton preset: doping
+  name: dopant
+max_iterations: 1000000000
+morphology_width: 20 # should be the same as thickness
+neighbours: 6
+new_wano: true
+pair_input:
+- Foerster_parameters:
+    Foerster_radius_backwards: '0.0'
+    Foerster_radius_forwards: '0.0'
+  molecule 1: host
+  molecule 2: host
+  pair_cutoff:
+    mean_distance: 2.5
+    smearing: 0.3
+  transfer_integral_parameters:
+    Dexter_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: Dexter1_0.dat
+      wf_decay_length: 1
+    electron_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_electrons_0.dat
+      wf_decay_length: 1
+    hole_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_holes_0.dat
+      wf_decay_length: 1
+- Foerster_parameters:
+    Foerster_radius_backwards: '0.0'
+    Foerster_radius_forwards: '0.0'
+  molecule 1: dopant
+  molecule 2: dopant
+  pair_cutoff:
+    mean_distance: 2.5
+    smearing: 0.3
+  transfer_integral_parameters:
+    Dexter_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: Dexter1_1.dat
+      wf_decay_length: 1
+    electron_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_electrons_1.dat
+      wf_decay_length: 1
+    hole_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_holes_1.dat
+      wf_decay_length: 1
+- Foerster_parameters:
+    Foerster_radius_backwards: '0.0'
+    Foerster_radius_forwards: '0.0'
+  molecule 1: host
+  molecule 2: dopant
+  pair_cutoff:
+    mean_distance: 2.5
+    smearing: 0.3
+  transfer_integral_parameters:
+    Dexter_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: Dexter1_2.dat
+      wf_decay_length: 1
+    electron_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_electrons_2.dat
+      wf_decay_length: 1
+    hole_transfer_integrals:
+      maximum_ti: 1.0E10
+      ti_input_file: J_holes_2.dat
+      wf_decay_length: 1
+parallel: false
+particles:
+  electrons: true
+  excitons: true
+  holes: true
+pbc:
+- true
+- true
+- true
+rates: Miller # same in settings.py for wano_tmp and python3_merge, default is 'Miller'
+screening_length: 1.3 # not necessary, default
+set_pbc: automatic # same for wano_tmp and python3_merge, default is 'manual'
+std_scale: -0.2 # works the same for wano_tmp and python3_merge
+transfer_integral_source: miller_classic
+
